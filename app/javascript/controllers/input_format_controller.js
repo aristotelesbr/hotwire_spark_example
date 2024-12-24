@@ -7,12 +7,12 @@ export default class extends Controller {
     console.log('InputFormatController connected')
   }
 
-	// Fix formar of credit card number to insert spaces every 4 digits. AI!
   formatCardNumber(event) {
     let input = event.target
     input.value = input.value
       .replace(/\D/g, '')
-      .replace(/(\d{4})(\d{1,4})/, '$1 $2')
+      .replace(/(\d{4})/g, '$1 ')
+      .trim()
       .slice(0, 19)
   }
 
