@@ -1,0 +1,110 @@
+<div class="w-full max-w-3xl mx-auto grid gap-8 md:grid-cols-2">
+  <!-- Resumo da Compra -->
+  <div class="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 h-fit">
+    <h2 class="text-2xl font-bold mb-6">Resumo da Compra</h2>
+
+    <div class="space-y-4">
+      <div class="flex justify-between items-center">
+        <span class="text-gray-400">Produto</span>
+        <span>Smartphone XYZ</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="text-gray-400">Quantidade</span>
+        <span>1</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="text-gray-400">Preço</span>
+        <span>R$ 1.999,00</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="text-gray-400">Frete</span>
+        <span>Grátis</span>
+      </div>
+      
+      <div class="pt-4 mt-4 border-t border-gray-800">
+        <div class="flex justify-between items-center text-xl font-bold">
+          <span>Total</span>
+          <span class="text-red-500">R$ 1.999,00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulário de Pagamento -->
+  <div class="space-y-6">
+    <div class="text-center md:text-left">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-12 w-12 mx-auto md:mx-0 text-red-500"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+        />
+      </svg>
+
+      <h2 class="mt-6 text-3xl font-bold">Checkout</h2>
+      <p class="mt-2 text-sm text-gray-400">Complete seus dados de pagamento</p>
+    </div>
+
+    <%= form_with model: @checkout, local: true, class: "mt-8 space-y-6", data: { controller: "input-format" } do |form| %>
+      <div class="space-y-4">
+        <div>
+          <%= form.label :card_number, "Número do Cartão", class: "block text-sm font-medium" %>
+          <%= form.text_field :card_number,
+                          class: "mt-1 block w-full px-3 py-2 bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500",
+                          placeholder: "1234 5678 9012 3456",
+                          data: {
+                            target: "input-format.cardNumber",
+                            action: "input->input-format#formatCardNumber",
+                          } %>
+        </div>
+        
+        <div>
+          <%= form.label :card_name, "Nome do Títular", class: "block text-sm font-medium" %>
+          <%= form.text_field :card_name,
+                          class: "mt-1 block w-full px-3 py-2 bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500",
+                          placeholder: "JOAO C. SOUSA",
+                          data: {
+                            target: "input-format.cardName",
+                            action: "input->input-format#formatCardName",
+                          } %>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <%= form.label :expiry_date, class: "block text-sm font-medium" %>
+            <%= form.text_field :expiry_date,
+                            class: "mt-1 block w-full px-3 py-2 bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500",
+                            placeholder: "MM/YY",
+                            data: {
+                              target: "input-format.expiryDate",
+                              action: "input->input-format#formatExpiryDate",
+                            } %>
+          </div>
+          
+          <div>
+            <%= form.label :cvv, class: "block text-sm font-medium" %>
+            <%= form.text_field :cvv,
+                            class: "mt-1 block w-full px-3 py-2 bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500",
+                            placeholder: "123",
+                            data: {
+                              target: "input-format.cvv",
+                              action: "input->input-format#formatCVV",
+                            } %>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <%= form.submit "Pagar R$ 1.999,00",
+                    class: "w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105" %>
+      </div>
+    <% end %>
+  </div>
+</div>
